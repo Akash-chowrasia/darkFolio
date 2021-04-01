@@ -20,7 +20,7 @@ authMiddleware.isLoggedIn = httpHandler(async (req, res, next) => {
     record.session_id.toString() === clientSession.toString(),
     createError(StatusCodes.UNAUTHORIZED, 'invalid session')
   );
-    
+
   req.user = await userService.getUserById(record.user_id);
   next();
 });

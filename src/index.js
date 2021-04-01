@@ -4,6 +4,7 @@ import authModule from './modules/auth';
 import skillsModule from './modules/skills';
 import experienceModule from './modules/experiences';
 import qualificationModule from './modules/qualifications';
+import profileModule from './modules/profile';
 
 const PORT = 2000;
 
@@ -14,6 +15,7 @@ const modules = [
   skillsModule,
   experienceModule,
   qualificationModule,
+  profileModule,
 ];
 
 modules.forEach((module) => {

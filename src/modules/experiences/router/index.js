@@ -9,7 +9,8 @@ router.post(
   '/',
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
-    await experienceService.addRecord(req.body);
+    const { email } = req.user;
+    await experienceService.addRecord({ email, detail: req.body });
     res.send('successfully added');
   })
 );
@@ -17,7 +18,8 @@ router.post(
 router.get(
   '/',
   httpHandler(async (req, res) => {
-    const records = await experienceService.fetchRecord();
+    const { email } = req.body;
+    const records = await experienceService.fetchRecord(email);
     res.send(records);
   })
 );

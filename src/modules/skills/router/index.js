@@ -9,8 +9,9 @@ router.post(
   '/',
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
+    const { email } = req.user;
     const { name, rating } = req.body;
-    await skillService.addSkill({ name, rating });
+    await skillService.addRecord({ email, name, rating });
     res.send('added successfully');
   })
 );
@@ -18,27 +19,29 @@ router.post(
 router.get(
   '/',
   httpHandler(async (req, res) => {
-    const records = await skillService.fetchSkill();
+    const { email } = req.body;
+    const records = await skillService.fetchRecord(email);
     res.send(records);
   })
 );
 
 router.put(
-  '/',
+  '/:id',
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
-    const { name, rating } = req.body;
-    await skillService.updateRating({ name, rating });
+    const { id } = req.params;
+    const { rating } = req.body;
+    await skillService.updateRating({ id, rating });
     res.send('successfull');
   })
 );
 
 router.delete(
-  '/',
+  '/:id',
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
-    const { name } = req.body;
-    await skillService.removeSkill(name);
+    const { id } = req.params;
+    await skillService.removeRecord(id);
     res.send('successfull');
   })
 );

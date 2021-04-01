@@ -5,18 +5,18 @@ import qualification from '../model';
 
 const qualificationService = {};
 
-qualificationService.addRecord = async (detail) => {
+qualificationService.addRecord = async ({ email, detail }) => {
   const { institute_name } = detail;
-  const record = await qualification.findOne({ institute_name });
+  const record = await qualification.findOne({ email, institute_name });
   assert(
     record === null,
     createError(StatusCodes.BAD_REQUEST, 'Already exists')
   );
-  await qualification.create({ ...detail });
+  await qualification.create({ ...detail, email });
 };
 
-qualificationService.fetchRecord = async () => {
-  const records = await qualification.find({}, { __v: 0 });
+qualificationService.fetchRecord = async (email) => {
+  const records = await qualification.find({ email }, { __v: 0 });
   return records;
 };
 

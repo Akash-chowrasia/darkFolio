@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const expireStamp = () => new Date();
+const createStamp = () => new Date();
 
 const schema = mongoose.Schema({
   user_id: {
@@ -13,7 +13,7 @@ const schema = mongoose.Schema({
   },
   created_at: {
     type: Date,
-    default: expireStamp,
+    default: createStamp,
   },
 });
 

@@ -3,7 +3,6 @@ dependencies:
   '@babel/preset-env': 7.13.12_@babel+core@7.13.10
   assert: 2.0.0
   cookie-parser: 1.4.5
-  crypto: 1.0.1
   esm: 3.2.25
   express: 4.17.1
   http-errors-lite: 2.0.2
@@ -1740,11 +1739,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
-  /crypto/1.0.1:
-    deprecated: This package is no longer supported. It's now a built-in Node module. If you've depended on crypto, you should switch to the one that's built-in.
-    dev: false
-    resolution:
-      integrity: sha512-VxBKmeNcqQdiUQUW2Tzq0t377b54N2bMtXO/qiLa+6eRRmmC4qT3D4OnTGoT/U6O9aklQ/jTwbOtRMTTY8G0Ig==
   /damerau-levenshtein/1.0.6:
     dev: true
     resolution:
@@ -4716,7 +4710,6 @@ specifiers:
   '@babel/preset-env': ^7.13.9
   assert: ^2.0.0
   cookie-parser: ^1.4.5
-  crypto: ^1.0.1
   eslint: ^7.2.0
   eslint-config-airbnb: ^18.2.0
   eslint-config-madhouselabs: 1.1.4
