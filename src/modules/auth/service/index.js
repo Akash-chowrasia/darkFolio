@@ -20,7 +20,7 @@ authService.registerUser = async (data) => {
   const hashedPassword = md5(data.password);
   const { email } = data;
 
-  const emailExist = await authModels.user.findOne({ email });
+  const emailExist = await authModels.user.findOne({ email }, { email });
   assert(
     emailExist === null,
     createError(StatusCodes.FORBIDDEN, 'This user already registered')

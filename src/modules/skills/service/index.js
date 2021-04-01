@@ -5,36 +5,36 @@ import skill from '../model';
 
 const skillService = {};
 
-skillService.addSkill = async ({ name, rating }) => {
-  const record = await skill.findOne({ name });
+skillService.addRecord = async ({ email, name, rating }) => {
+  const record = await skill.findOne({ email, name });
   assert(
     record === null,
     createError(StatusCodes.BAD_REQUEST, 'skill already exists')
   );
-  await skill.create({ name, rating });
+  await skill.create({ email, name, rating });
 };
 
-skillService.fetchSkill = async () => {
-  const records = await skill.find({}, { _id: 0, __v: 0 });
+skillService.fetchRecord = async (email) => {
+  const records = await skill.find({ email }, { _id: 0, __v: 0 });
   return records;
 };
 
-skillService.updateRating = async ({ name, rating }) => {
-  const record = await skill.findOne({ name });
+skillService.updateRating = async ({ id, rating }) => {
+  const record = await skill.findById(id);
   assert(
     record !== null,
     createError(StatusCodes.BAD_REQUEST, 'skill does not exists')
   );
-  await skill.findOneAndUpdate({ name }, { rating });
+  await skill.findByIdAndUpdate(id, { rating });
 };
 
-skillService.removeSkill = async (name) => {
-  const record = await skill.findOne({ name });
+skillService.removeRecord = async (id) => {
+  const record = await skill.findById(id);
   assert(
     record !== null,
     createError(StatusCodes.BAD_REQUEST, 'skill does not exists')
   );
-  await skill.findOneAndDelete({ name });
+  await skill.findByIdAndDelete(id);
 };
 
 export default skillService;

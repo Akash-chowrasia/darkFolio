@@ -17,7 +17,18 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 
+  role: {
+    type: String,
+    enum: ['root', 'user'],
+    default: 'user',
+  },
+
   is_email_verified: {
+    type: Boolean,
+    default: false,
+  },
+
+  is_deleted: {
     type: Boolean,
     default: false,
   },

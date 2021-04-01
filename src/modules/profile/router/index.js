@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import authMiddleware from '../../auth/service/middleware';
 import httpHandler from '../../commons/http-handler';
-import qualificationService from '../service';
+import profileService from '../service';
 
 const router = Router();
 
@@ -10,7 +10,8 @@ router.post(
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
     const { email } = req.user;
-    await qualificationService.addRecord({ email, detail: req.body });
+    const detail = req.body;
+    await profileService.addRecord({ email, detail });
     res.send('successfull');
   })
 );
@@ -19,7 +20,7 @@ router.get(
   '/',
   httpHandler(async (req, res) => {
     const { email } = req.body;
-    const records = await qualificationService.fetchRecord(email);
+    const records = await profileService.getRecord(email);
     res.send(records);
   })
 );
@@ -29,18 +30,8 @@ router.put(
   authMiddleware.isLoggedIn,
   httpHandler(async (req, res) => {
     const { id } = req.params;
-    const detail = req.body;
-    await qualificationService.updateRecord({ id, detail });
-    res.send('successfull');
-  })
-);
-
-router.delete(
-  '/:id',
-  authMiddleware.isLoggedIn,
-  httpHandler(async (req, res) => {
-    const { id } = req.params;
-    await qualificationService.deleteRecord(id);
+    const data = req.body;
+    await profileService.updateRecord({ id, data });
     res.send('successfull');
   })
 );

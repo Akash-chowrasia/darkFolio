@@ -5,9 +5,10 @@ import experience from '../model';
 
 const experienceService = {};
 
-experienceService.addRecord = async (detail) => {
+experienceService.addRecord = async ({ email, detail }) => {
   const { title, company, start_date, end_date } = detail;
   const record = await experience.findOne({
+    email,
     title,
     company,
     start_date,
@@ -17,11 +18,11 @@ experienceService.addRecord = async (detail) => {
     record === null,
     createError(StatusCodes.BAD_REQUEST, 'already exists')
   );
-  await experience.create({ ...detail });
+  await experience.create({ ...detail, email });
 };
 
-experienceService.fetchRecord = async () => {
-  const records = await experience.find({}, { __v: 0 });
+experienceService.fetchRecord = async (email) => {
+  const records = await experience.find({ email }, { __v: 0 });
   return records;
 };
 
