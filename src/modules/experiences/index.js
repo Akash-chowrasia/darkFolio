@@ -7,7 +7,7 @@ router.use('/experience', experienceRouter);
 const experienceModule = {
   init: (app) => {
     app.use(router);
-    console.log('experience module loaded');
+    Logger.debug('Experience module loaded');
   },
 };
 

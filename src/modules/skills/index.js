@@ -8,7 +8,7 @@ router.use('/skills', skillsRouter);
 const skillsModule = {
   init: (app) => {
     app.use(router);
-    console.log('Skills module loaded');
+    Logger.debug('Skill module loaded');
   },
 };
 

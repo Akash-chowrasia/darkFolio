@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema({
+const experienceSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -12,4 +12,6 @@ const schema = mongoose.Schema({
   description: String,
 });
 
-export default mongoose.model('experiences', schema);
+experienceSchema.index({ email: 1 });
+
+export default mongoose.model('experiences', experienceSchema);

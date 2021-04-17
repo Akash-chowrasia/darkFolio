@@ -7,7 +7,7 @@ router.use('/qualification', qualificationRouter);
 const qualificationModule = {
   init: (app) => {
     app.use(router);
-    console.log('qualification module loaded');
+    Logger.debug('Qualification module loaded');
   },
 };
 

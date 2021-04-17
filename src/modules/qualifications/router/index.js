@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import authMiddleware from '../../auth/service/middleware';
-import httpHandler from '../../commons/http-handler';
+import authMiddleware from '~/modules/auth/service/middleware';
+import httpHandler from '~/helpers/http-handler';
 import qualificationService from '../service';
 
 const router = Router();

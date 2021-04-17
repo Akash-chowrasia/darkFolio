@@ -1,10 +1,7 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-  },
+const qualificationSchema = mongoose.Schema({
+  email: String,
   education_type: String,
   institute_name: String,
   start_year: String,
@@ -13,4 +10,6 @@ const schema = mongoose.Schema({
   score: String,
 });
 
-export default mongoose.model('qualification_record', schema);
+qualificationSchema.index({ email: 1 });
+
+export default mongoose.model('qualification_record', qualificationSchema);

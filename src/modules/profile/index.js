@@ -7,7 +7,7 @@ router.use('/profile', profileRouter);
 const profileModule = {
   init: (app) => {
     app.use(router);
-    console.log('profile module loaded');
+    Logger.debug('Profile module loaded');
   },
 };
 

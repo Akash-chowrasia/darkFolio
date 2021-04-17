@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-  },
+const skillSchema = mongoose.Schema({
+  email: String,
   name: String,
   rating: String,
 });
 
-export default mongoose.model('skill_record', schema);
+skillSchema.index({ email: 1 });
+
+export default mongoose.model('skill_record', skillSchema);

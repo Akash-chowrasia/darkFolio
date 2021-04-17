@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.Schema({
+const profileSchema = mongoose.Schema({
   name: String,
   description: String,
   full_name: String,
@@ -11,4 +11,6 @@ const schema = mongoose.Schema({
   email: String,
 });
 
-export default mongoose.model('profile', schema);
+profileSchema.index({ email: 1 });
+
+export default mongoose.model('profile', profileSchema);
