@@ -1,28 +1,33 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import createError from 'http-errors-lite';
-import { StatusCodes } from 'http-status-codes';
+import express, { Router } from 'express';
+import cors from 'cors';
+import { useHttpLogger } from '~/helpers/use-http-logger';
+import { errorHandler, notFoundHandler } from '~/helpers/express-middlewares';
+import { usePassport } from '~/helpers/use-passport';
+import authModule from '~/modules/auth';
 
-export const getAnApp = () => {
+export const createApp = ()=>{
   const app = express();
-  app.use(express.json());
-  app.use(cookieParser());
-  return app;
-};
-
-const notFoundHandler = (req, res, next) => {
-  next(
-    createError(StatusCodes.NOT_FOUND, `${req.originalUrl} route not found.`)
+  app.use(
+    cors({
+      origin: new RegExp(process.env.CORS_REGEX),
+      credentials: true,
+    })
   );
-};
+  app.use(express.json());
+  return app;
+}
 
-const errorHandler = (err, req, res, _next) => {
-  res.status(err.statusCode || 500).send({
-    message: err.message,
-  });
-};
+export const useModules = {
+  init:(app)=>{
+    const router = Router();
+    useHttpLogger(router);
+    usePassport(router);
+    authModule.init(router);
+    app.use(process.env.URL_PREFIX, router);
+  }
+}
 
-export const finishApp = (app) => {
+export const finishApp = (app)=>{
   app.use(notFoundHandler);
   app.use(errorHandler);
-};
+}

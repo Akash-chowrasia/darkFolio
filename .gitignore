@@ -1,7 +1,7 @@
-env
 node_modules
 .idea
 .vscode
-builds
+sendgrid.env
 dist
-nohup.out
+.data
+.secret.sh

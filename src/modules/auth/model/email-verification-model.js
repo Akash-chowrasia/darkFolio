@@ -1,14 +1,11 @@
 import mongoose from 'mongoose';
 
-const verificationSchema = mongoose.Schema({
-  verification_code: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
+const schema = new mongoose.Schema({
+  verification_code: String,
+  coaching_name:String,
+  email: String,
 });
 
-export default mongoose.model('email_verification', verificationSchema);
+schema.index({ verification_code: 1 });
+
+export default mongoose.model('auth_verify_email', schema);

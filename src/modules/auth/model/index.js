@@ -1,15 +1,3 @@
-import emailVerificationModel from './email-verification-model';
-import resetPasswordModel from './reset-password-model';
-import userModel from './user-model';
-import authSession from './session-model';
-import logStoreModel from './user-log-model';
-
-const authModels = {
-  emailVerification: emailVerificationModel,
-  user: userModel,
-  resetPassword: resetPasswordModel,
-  session: authSession,
-  logStore: logStoreModel,
-};
-
-export default authModels;
+export { default as forgotPasswordModel } from './forgot-password-model';
+export { default as userModel } from './user-model';
+export { default as emailVerificationModel } from './email-verification-model';

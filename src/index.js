@@ -1,35 +1,22 @@
-import './modules/db';
-import { finishApp, getAnApp } from './app';
-import authModule from './modules/auth';
-import skillsModule from './modules/skills';
-import experienceModule from './modules/experiences';
-import qualificationModule from './modules/qualifications';
-import profileModule from './modules/profile';
+import './helpers/logger';
+import './helpers/init-db';
 
-const PORT = 2000;
+import { StatusCodes } from 'http-status-codes';
+import {createApp, finishApp, useModules} from "~/app";
 
-const app = getAnApp();
+const app = createApp();
 
-const modules = [
-  authModule,
-  skillsModule,
-  experienceModule,
-  qualificationModule,
-  profileModule,
-];
+useModules.init(app);
 
-modules.forEach((module) => {
-  module.init(app);
+app.get('/healthy', (req, res) => {
+  res.sendStatus(StatusCodes.OK);
 });
 
 finishApp(app);
 
-(async () => {
-  try {
-    await app.listen(PORT);
-    console.log('-------   Server Started  ------');
-  } catch (err) {
-    console.error(err.message);
-    process.exit(1);
-  }
-})();
+try {
+  app.listen(Number(process.env.APP_PORT));
+  Logger.info(`App Server started over ${process.env.APP_PORT}`);
+} catch (err) {
+  Logger.error(`Failed to start App Server over ${process.env.APP_PORT}`);
+}

@@ -1,6 +1,6 @@
 module.exports = {
   extends: ['eslint-config-madhouselabs'],
-  rules: {
-    'no-console': 'off',
+  globals: {
+    Logger: 'readonly',
   },
 };

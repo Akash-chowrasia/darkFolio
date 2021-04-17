@@ -1,7 +1,14 @@
-# darkFolio
+## How to start server
 
-This is My Personal Portfolio Backend Project.
+<ol type="1">
 
-* Backend : **NodeJs** 
-* Server : **ExpressJs** 
-* DataBase : **MongoDB** 
+<li> ssh Clone it from master branch </li>
+<pre> git clone git@gitlab.com:paycron-dev/api.git </pre>
+<li> Go to api repository </li>
+<pre> cd ./api </pre>
+<li> install dependencies </li>
+<pre> pnpm i </pre>
+<li> start project </li>
+<pre> pnpm start </pre>
+	
+</ol>
