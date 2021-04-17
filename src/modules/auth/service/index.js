@@ -14,15 +14,9 @@ const VERIFICATION_CODE_SIZE = 17;
 const authService = {};
 
 authService.registerUser = async (data) => {
-  const { email, password, role, coaching_name } = data;
-  const searchAdmin = await userModel.findOne({role:'ADMIN',coaching_name});
+  const { email, password } = data;
 
-  assert(
-    searchAdmin != null || role.toUpperCase() === 'ADMIN',
-    createError(StatusCodes.BAD_REQUEST,'Coaching Not registered')
-  );
-
-  const existingUser = await userModel.findOne({ email, coaching_name });
+  const existingUser = await userModel.findOne({ email });
 
   assert(
     existingUser == null,
@@ -31,19 +25,20 @@ authService.registerUser = async (data) => {
 
   const hashedPassword = md5(password);
 
-  const user = userModel.create({...data,password:hashedPassword})
+  await userModel.create({ ...data, password: hashedPassword });
 
   const verificationCode = nanoid(VERIFICATION_CODE_SIZE);
   await emailVerificationModel.create({
     verification_code: verificationCode,
     email,
-    coaching_name
   });
-  Logger.debug('Registration verification email is: '+verificationCode.toString());
+  Logger.debug(
+    `Registration verification email is: ${verificationCode.toString()}`
+  );
 };
 
 authService.loginUser = async ({ username, password }) => {
-  const user = await userModel.findOne({email:username.split(':')[0],coaching_name:username.split(':')[1]});
+  const user = await userModel.findOne({ email: username });
   assert(user !== null, createError(StatusCodes.BAD_REQUEST, 'Login Failed'));
 
   assert(
@@ -61,39 +56,39 @@ authService.loginUser = async ({ username, password }) => {
 
 authService.verifyEmail = async (verificationCode) => {
   const record = await emailVerificationModel.findOne({
-    verification_code:verificationCode,
+    verification_code: verificationCode,
   });
 
   assert(record !== null, createError(StatusCodes.BAD_REQUEST, 'Bad Request'));
-  const { email, coaching_name } = record
-
-  await userModel.updateOne({ email, coaching_name }, { is_verified: true });
+  const { email } = record;
+  await userModel.updateOne({ email }, { is_verified: true });
 
   await emailVerificationModel.deleteOne({
-    verification_code:verificationCode,
+    verification_code: verificationCode,
   });
 };
 
-authService.handleForgotPassword = async ({ email, coaching_name }) => {
-  const user = await userModel.findOne({email,coaching_name});
-  assert(user!=null,createError(
-    StatusCodes.BAD_REQUEST,
-    'user Not Registered')
+authService.handleForgotPassword = async (email) => {
+  const user = await userModel.findOne({ email });
+  assert(
+    user != null,
+    createError(StatusCodes.BAD_REQUEST, 'user Not Registered')
   );
+
   const token = nanoid(50);
-  await forgotPasswordModel.create({ token, email,coaching_name });
-  Logger.debug('Reset token is: '+token.toString());
+  await forgotPasswordModel.create({ token, email });
+  Logger.debug(`Reset token is: ${token.toString()}`);
 };
 
 authService.resetPassword = async ({ token, new_password: newPassword }) => {
-  const user = await forgotPasswordModel.findOne({ token });
+  const record = await forgotPasswordModel.findOne({ token });
   assert(
-    'user' !== null,
+    record !== null,
     createError(StatusCodes.NOT_ACCEPTABLE, 'cannot reset password ....')
   );
-  const { email, coaching_name } = user;
+  const { email } = record;
   const hashPassword = md5(newPassword);
-  await userModel.updateOne({ email, coaching_name }, { password: hashPassword });
+  await userModel.updateOne({ email }, { password: hashPassword });
   await forgotPasswordModel.deleteOne({ token });
 };
 

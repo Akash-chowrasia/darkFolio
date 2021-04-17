@@ -36,8 +36,8 @@ router.post(
 router.get(
   '/forgot-password',
   httpHandler(async (req, res) => {
-    const { email, coaching_name } = req.body;
-    await authService.handleForgotPassword({ email, coaching_name });
+    const { email } = req.body;
+    await authService.handleForgotPassword(email);
     res.send({
       message: 'We have sent you a mail, please reset your password through it',
     });

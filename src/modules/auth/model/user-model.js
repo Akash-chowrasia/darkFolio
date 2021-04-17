@@ -2,11 +2,10 @@ import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   name: String,
-  coaching_name: String,
   email: String,
   role: {
     type: String,
-    enum: ['ROOT', 'ADMIN', 'TEACHER', 'STUDENT'],
+    enum: ['ROOT', 'USER'],
     default: 'ADMIN',
   },
   password: String,
@@ -15,10 +14,6 @@ const userSchema = new mongoose.Schema({
     default: false,
   },
   is_deleted: {
-    type: Boolean,
-    default: false,
-  },
-  is_approved:{
     type: Boolean,
     default: false,
   },

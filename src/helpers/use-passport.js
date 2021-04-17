@@ -31,7 +31,7 @@ export const usePassport = (app) => {
         usernameField: 'username',
         passwordField: 'password',
       },
-      (username, password,  done) => {
+      (username, password, done) => {
         (async () => {
           try {
             const user = await authService.loginUser({ username, password });

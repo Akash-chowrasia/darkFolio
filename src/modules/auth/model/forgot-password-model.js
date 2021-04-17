@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 
 const forgotPasswordSchema = new mongoose.Schema({
   token: String,
-  coaching_name: String,
   email: String,
 });
 

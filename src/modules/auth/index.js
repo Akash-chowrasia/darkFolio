@@ -1,8 +1,12 @@
+import { Router } from 'express';
 import authRouter from './router';
+
+const router = Router();
+router.use('/auth', authRouter);
 
 const authModule = {
   init: (app) => {
-    app.use('/', authRouter);
+    app.use(router);
     Logger.debug('Auth module loaded');
   },
 };
