@@ -1,0 +1,2 @@
+export AUTH_DB_URL="mongodb+srv://akrotutor:Hind786@cluster0.xwvos.mongodb.net/darkFolio?retryWrites=true&w=majority"
+export SESSION_SECRET='x2JlpwHWlsR-6EdwIj9WLMPTPlA5OMMEUDpTZgIVD72M9mTJDhNatkn4XT40pWgJXxi7agMtqL5CfjyWYrGVKg'

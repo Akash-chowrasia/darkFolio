@@ -4,4 +4,3 @@ node_modules
 sendgrid.env
 dist
 .data
-.secret.sh
