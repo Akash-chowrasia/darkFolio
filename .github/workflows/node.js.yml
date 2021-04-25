@@ -26,4 +26,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: source ./.env.sh && source ./.secret.sh && node -r esm index.dev.js
+    - run: npm run build
+    - run: node -r esm dist/main.js
