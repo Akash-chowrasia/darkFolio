@@ -25,5 +25,6 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
+    - run: pnpm ci
+    - run: pnpm install
     - run: source ./.env.sh && source ./.secret.sh && node -r esm index.dev.js
